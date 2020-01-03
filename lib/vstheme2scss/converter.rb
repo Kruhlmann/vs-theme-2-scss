@@ -28,14 +28,15 @@ module Converter
   end
 
   def theme_files_to_hash(themes)
-    json_res = themes.map{ |theme_file|
+    themes.map{ |theme_file|
       theme_path = Pathname.new(theme_file)
+      theme = nil
       if not theme_path.directory?
         theme = JSON.parse(theme_path.read)
       else
         puts "Error: #{theme_path.dirname}#{theme_path.basename} was not a file."
       end
-      theme_path.directory? ? nil : JSON.parse(theme_path.read)
+      theme
     }.select{ |theme| theme != nil }
   end
 
