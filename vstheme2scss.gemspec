@@ -8,5 +8,5 @@ Gem::Specification.new do |s|
     s.email       = 'kruhlmann@protonmail.com'
     s.files       = ["lib/vstheme2scss.rb"]
     s.homepage    = 'https://rubygems.org/gems/hola'
-    s.license     = 'GPLv3-or-later'
+    s.license     = 'GPL-3.0-or-later'
 end
