@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
     s.description   = ""
     s.authors       = ["Andreas Kruhlmann"]
     s.email         = 'kruhlmann@protonmail.com'
-    s.files         = ["bin/vstheme2scss"]
+    s.files         = ["lib/converter.rb"]
     s.homepage      = 'https://github.com/Kruhlmann/vs-theme-2-scss'
     s.license       = 'GPL-3.0-or-later'
     s.executables   = ["vstheme2scss"]
