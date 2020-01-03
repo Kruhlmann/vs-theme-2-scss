@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
     s.name          = 'vstheme2scss'
-    s.version       = '0.1.2'
+    s.version       = '0.1.3'
     s.date          = '2020-01-03'
     s.summary       = "Converts VS Code themes into SCSS themes."
     s.description   = ""

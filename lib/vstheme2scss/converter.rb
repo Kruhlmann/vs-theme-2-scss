@@ -42,13 +42,8 @@ module Converter
     }.select{ |theme| theme != nil }
   end
 
-  def make_files(options, themes)
-    if not options[:out_file]
-        puts "Error: Missing output file"
-        exit
-    end
-
-    theme_logic = "\n" + '@mixin themify($themes) {' + "\n"\
+  def get_theme_logic()
+    "\n" + '@mixin themify($themes) {' + "\n"\
     '    @each $theme, $map in $themes {' + "\n"\
     '        .theme-#{$theme} & {' + "\n"\
     '            $theme-map: () !global;' + "\n"\
@@ -65,7 +60,15 @@ module Converter
     '@function themed($key) {' + "\n"\
     '    @return map-get($theme-map, $key);' + "\n"\
     '}'
+  end
 
+  def make_files(options, themes)
+    if not options[:out_file]
+        puts "Error: Missing output file"
+        exit
+    end
+
+    theme_logic = get_theme_logic()
     out_path = Pathname.new(options[:out_file])
     json_res = theme_files_to_hash(themes)
     out_res = json_res.map{ |theme| build_scss_theme(theme) }.join("\n")
