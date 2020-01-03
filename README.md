@@ -6,11 +6,16 @@
 
 Converts VS Code themes into SCSS themes.
 
-## Usage
+## Installation
 
 ```bash
 gem install vstheme2scss
-vstheme2scss -h
+```
+
+## Usage
+
+```bash
+$ vstheme2scss -h
 Usage: vstheme2scss [options] <files>
     -j, --json-list=JSONFILE         File to output theme names to
     -o, --out-file=OUTFILE           Output destionation file
