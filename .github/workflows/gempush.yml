@@ -1,4 +1,4 @@
-name: Ruby Gem
+name: gempush
 
 on:
   pull_request:
