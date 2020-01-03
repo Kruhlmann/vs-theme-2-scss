@@ -1,7 +1,9 @@
 require "json"
 require "pathname"
 
+
 module Converter
+
   def build_tokens_scss(tokens)
     tokens.select{ |token|
       token.key?("name")
@@ -46,11 +48,28 @@ module Converter
         exit
     end
 
+    theme_logic = "\n" + '@mixin themify($themes) {' + "\n"\
+    '    @each $theme, $map in $themes {' + "\n"\
+    '        .theme-#{$theme} & {' + "\n"\
+    '            $theme-map: () !global;' + "\n"\
+    '            @each $key, $submap in $map {' + "\n"\
+    '                $value: map-get(map-get($themes, $theme), "#{$key}");' + "\n"\
+    '                $theme-map: map-merge($theme-map, ($key: $value)) !global;' + "\n"\
+    '            }' + "\n"\
+    '            @content;' + "\n"\
+    '            $theme-map: null !global;' + "\n"\
+    '        }' + "\n"\
+    '    }' + "\n"\
+    '}' + "\n"\
+    '' + "\n"\
+    '@function themed($key) {' + "\n"\
+    '    @return map-get($theme-map, $key);' + "\n"\
+    '}'
+
     out_path = Pathname.new(options[:out_file])
     json_res = theme_files_to_hash(themes)
     out_res = json_res.map{ |theme| build_scss_theme(theme) }.join("\n")
-    themify_file = Pathname.new(File.join(File.dirname(__FILE__), "themify.scss"))
-    out_path.write("$themes: (\n#{out_res}\n);\n#{themify_file.read}")
+    out_path.write("$themes: (\n#{out_res}\n);\n#{theme_logic}")
 
     if options[:json_list]
       json_out_path = Pathname.new(options[:json_list])
