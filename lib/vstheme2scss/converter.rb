@@ -49,7 +49,8 @@ module Converter
     out_path = Pathname.new(options[:out_file])
     json_res = theme_files_to_hash(themes)
     out_res = json_res.map{ |theme| build_scss_theme(theme) }.join("\n")
-    out_path.write("$themes: (\n#{out_res}\n);\n")
+    themify_file = Pathname.new(File.join(File.dirname(__FILE__), "themify.scss"))
+    out_path.write("$themes: (\n#{out_res}\n);\n#{themify_file.read}")
 
     if options[:json_list]
       json_out_path = Pathname.new(options[:json_list])
