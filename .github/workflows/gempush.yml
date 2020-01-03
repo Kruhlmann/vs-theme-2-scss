@@ -1,12 +1,9 @@
 name: gempush
 
 on:
-  pull_request:
-    branches:
-      - master
   push:
     branches:
-      - master
+      - publish
 
 jobs:
   build:
