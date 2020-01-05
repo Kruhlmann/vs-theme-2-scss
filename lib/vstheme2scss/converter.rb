@@ -14,7 +14,8 @@ module Converter
     }.select{ |token|
       token["settings"].key?("foreground")
     }.map{ |token|
-      "\t\t#{token["name"].downcase.gsub(/ /, "-")}-color: #{token["settings"]["foreground"]},"
+      name_subbed = token["name"].gsub(/[\: \.]/, "-")
+      "\t\t#{name_subbed.downcase}-color: #{token["settings"]["foreground"]},"
     }.join("\n")
   end
 
@@ -23,8 +24,8 @@ module Converter
     tokens = theme["tokenColors"]
     [
       "\t#{theme["name"].downcase.gsub(/ /, "-")}: (",
-      "\t\tbackground-color: #{colors["editor.background"]},",
-      "\t\tforeground-color: #{colors["editor.foreground"]},",
+      "\t\tbackground-color: #{colors["editor.background"] || "#000"},",
+      "\t\tforeground-color: #{colors["editor.foreground"] || "#fff"},",
       "#{build_tokens_scss(tokens)}",
     ].join("\n") + "\n\t),"
   end
