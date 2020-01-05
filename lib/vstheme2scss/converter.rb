@@ -14,8 +14,11 @@ module Converter
     }.select{ |token|
       token["settings"].key?("foreground")
     }.map{ |token|
-      name_subbed = token["name"].gsub(/[\: \.]/, "-")
-      "\t\t#{name_subbed.downcase}-color: #{token["settings"]["foreground"]},"
+      name_subbed = token["name"].gsub(/[\: \.\'\,]/, "-")
+      # SCSS doesn't support RGBA HEX syntax.
+      color = token["settings"]["foreground"]
+      color_trimmed = color.gsub(/\#([a-fA-F0-9]{8})/) { |color| color[0...7]}
+      "\t\t#{name_subbed.downcase}-color: #{color_trimmed},"
     }.join("\n")
   end
 
